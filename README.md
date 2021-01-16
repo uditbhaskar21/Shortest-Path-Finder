@@ -24,4 +24,15 @@ Distances between A-A = 0, A-B = 10, A-C = 15, A-D = 20
  
  # Output
  The Shortest Path is : 1>2>3>4>1 and the Minimum Distance is : 9
+ # Random Test Cases
+ Input 1 : Cities = 1
+ O/P = "Path is not possible !"
+ 
+ Input 2 : Cities = 2
+ Distance = 0 15 7 0
+ O/P = "The Shortest Path is : 1>2>1 and the Minimum Distance is : 22"
+ 
+ Input 3 : Cities = 5
+ Distance = 0 5 8 10 2 5 0 15 9 6 8 15 0 3 12 10 9 3 0 4 2 6 12 4 0
+ O/P = "The Shortest Path is : 1>2>5>4>3>1 and the Minimum Distance is : 26"
  
