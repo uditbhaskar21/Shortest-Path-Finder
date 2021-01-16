@@ -22,3 +22,6 @@ Distances between A-A = 0, A-B = 10, A-C = 15, A-D = 20
                   
  For this Information Input will be = 0 10 15 20 10 0 30 5 15 20 0 9 20 5 9 0
  
+ # Output
+ The Shortest Path is : 1>2>3>4>1 and the Minimum Distance is : 9
+ 
