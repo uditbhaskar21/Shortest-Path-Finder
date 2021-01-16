@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <script>
+            function tspdp(c, tour, start, n) 
+            {
+                let mintour=new Array(n+1), temp=new Array(n+1), mincost=Number.MAX_VALUE,ccost = 0, i = 0, j = 0, k = 0;
+                if(start == n-1)
+                {
+                    return (c[tour[n-1]][tour[n]] + c[tour[n]][1]);
+                }        
+                for(i=start+1; i<=n; i++) 
+                {
+                    for(j=1; j<=n; j++)
+                        temp[j] = tour[j];        
+                    temp[start+1] = tour[i];
+                    temp[i] = tour[start+1];            
+
+                    if((c[tour[start]][tour[i]]+(ccost=tspdp(c,temp,start+1,n)))<mincost)
+                    {            
+                        mincost = c[tour[start]][tour[i]] + ccost;              
+                        for(k=1; k<=n; k++)
+                            mintour[k] = temp[k];
+                    }
+                }        
+                for(i=1; i<=n; i++)
+                    tour[i] = mintour[i];
+                return mincost;       
+            }
+
+            function solve(){
+                let n = parseInt(document.getElementById("cities").value);
+                let str = document.getElementById("distance").value;
+                var c = new Array(n+1), tour=new Array(n+1);
+                let i, j,cost;             
+                if(n==1)
+                {
+                    document.getElementById("output").innerHTML = "Path is not possible!";
+                    return;
+                }
+                let inp = str.split(" ");
+                let ind = 0;
+                for(i=1;i<=n;i++){
+                    c[i] = [];
+                    for(j=1;j<=n;j++)
+                        c[i][j] = parseInt(inp[ind++]);  
+                }      
+                for(i=1;i<=n;i++)
+                    tour[i]=i;       
+                cost = tspdp(c, tour, 1, n);  
+                let res = ""      
+                res+= "The Shortest Path is : ";        
+                for(i=1;i<=n;i++)
+                    res+= tour[i]+">";        
+                res +="1\n";     
+                res += "and the Minimum Distance is  : "+cost+"\n";
+                document.getElementById("output").innerHTML = res;
+            }
+        </script>
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+            body{
+                text-align: center;
+                background-image:url('static/bg.jpg')
+            }
+            #numcities{
+                font-style: normal;
+                font-weight: bold;
+                font-size: larger;
+            }
+            #heading{
+                text-decoration: solid;
+                text-decoration: underline;
+                color: rgb(196, 240, 202);
+                background-color: rgb(2, 58, 32);
+                word-spacing: 30px;
+                letter-spacing: 2px;
+            }
+         
+            .but{
+                background-color: green;
+                color: whitesmoke;
+                padding: 15px 32px;
+                border-radius: 8px;
+                transition-duration: 0.4s;
+                box-shadow: 2px;
+            }
+            .but:hover{
+                background-color: black;
+                color: whitesmoke ;
+            }
+            #cities{
+                width: 30%;
+                line-height: 20px;
+                margin: auto;
+                padding:  2px 2px;
+                text-align: center;
+                text-size-adjust: 15px;
+                border-radius: 10px;
+                font-size: medium;
+                background-color: rgb(248, 246, 244);
+                color: rgb(97, 45, 3);
+
+            }
+            
+            .in{
+                width: 60%;
+                margin: 8px 0;
+                box-sizing: border-box;
+                padding: 20px 10px; line-height: 28px; 
+                border-radius: 10px;
+                text-align: center;
+                font-size: larger;
+            }
+            .in[type=text]{
+                background-color: rgb(248, 246, 244);
+                color: rgb(97, 45, 3);
+            }
+            #output{
+                font-size: 30px;
+                background-color: rgb(248, 246, 244) ;
+                color: rgb(97, 45, 3);
+            }
+            
+        </style>
+    </head>
+    <body>
+        
+        <div id="heading"> <h1 >SHORTEST   PATH   FINDER</h1></div>
+        <div id = "numcities"><h2>NUMBER OF CITIES TO BE TRAVELLED :</h2></div>
+        <input type = "text"  placeholder="Don't you think travelling more than 10 cities is very tiredly ?" id="cities" required/>
+        <h2>ENTER THE DISTANCE B/W CITIES (Space Seprated):</h2>
+        <input class="in" type = "text"  placeholder="Enter the distances between cities" id="distance" required/><br/><br/>
+        <button class="but" onclick="solve()">FIND PATH</button>
+        <h2>Output:</h2>
+        <p id="output"></p>
+    </body>
+
+</html>
